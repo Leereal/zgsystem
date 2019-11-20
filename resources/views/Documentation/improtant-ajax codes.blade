@@ -1,0 +1,167 @@
+//Fuction to Submit Data
+  $(function () {
+    $('#modal-form form').validator().on('submit', function (e) {
+    if(!e.isDefaultPrevented()){
+      var id = $('#id').val();
+      if(save_method == 'add') url ="{{ url('/banks') }}";
+      else url = "{{ url('banks').'/' }}" + id;
+      $.ajax({
+        url : url,
+        type : "POST",
+        data : new FormData($("#modal-form form")[0]),
+        contentType : false,
+        processData : false,
+        success : function(data) {
+          $('#modal-form').modal('hide');
+          window.location.reload();
+          swal({
+            title: "Successfully Added",
+            text: "New Bank Added",
+            icon: "success",
+            button: "Done!",            
+          });
+        },
+        error : function(data){
+          swal({
+            title: "Ooops..., failed!",
+            text: data.message,
+            type: 'error',
+            timer : '1500'
+          })  
+        }
+      });
+      return false;
+    }
+  });
+
+
+
+  $(document).ready(function(){
+  $('#insertbutton').click(function(e){
+     e.preventDefault();
+     $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+    });
+     $.ajax({
+        url: "{{ url('banks') }}",
+        method: 'post',
+        data: {
+           name: $('#name').val(),
+           account_number: $('#account_number').val()           
+        },
+        success: function(result){
+           swal({
+            title: "Successfully Added",
+            text: "New Bank Added",
+            icon: "success",
+            button: "Done!",            
+          });
+        }});
+  });
+
+
+  Working Code
+  =============================
+  //Function to save data
+  function saveData(e) {
+    //Prevent default page loading by link click
+    e = e || window.event;
+    e.preventDefault();
+
+    //Load data to Ajax for submission
+   $.ajax({
+      url: "{{ url('banks') }}",
+      method: 'POST',
+      data: {
+        name: $('#name').val(),
+        account_number: $('#account_number').val(),
+        _token: '{{csrf_token()}}'           
+      },
+        success : function(data) {
+          $('#modal-form').modal('hide');
+          
+          swal({
+            title: "Successfully Added",
+            text: "New Bank Added",
+            icon: "success",
+            button: "Done!",                    
+          },
+          function(){
+            window.location.reload();
+          });
+        },
+      error : function(data){        
+        swal({
+          title: "Ooops..., failed!",
+          text: data.message,
+          type: 'error',
+          timer : '6500'
+        })
+      }
+    });
+    //Close of Ajax Data
+
+  }
+
+  error : function(data){        
+        swal({
+          title: "Ooops..., failed!",
+          text: data.responseJSON.message,
+          icon: "error",          
+          timer : '6500'          
+        })
+        .then((value) => {
+           var errors = data.responseJSON;
+           var lee ="Liberty"
+           $.each(errors , function(index, value) {            
+            swal(value);
+             });
+          
+        });
+      }
+
+
+
+       error : function(data){        
+        swal({
+          title: "Ooops..., failed!",
+          text: data.responseJSON.message,
+          icon: "error",          
+          timer : '6500'          
+        })
+        done(function(data, statusText, xhr) {
+    if(xhr.status == 301) {
+        window.location = data;
+    }
+});
+      }
+
+      //Function to open modal after button click to add new data
+  function editForm(id) {
+    save_method = 'edit';
+    $('input[name_method]').val('PATCH');    
+    $('#modal-form form')[0].reset();
+    $.ajax({
+      url : "{{ url('banks') }}" + '/' id + "/edit",
+      type : "GET",
+      dataType : "JSON",
+      success : function(data) {
+        $('#modal-form').modal('show');
+        $('#modal-title').text('Edit Bank');
+        $('#insertbutton').text('Save Changes');
+        $('#id').val(data.id);
+        $('#name').val(data.name);
+        $('#account_number').val(data.account_number);
+         },
+      error : function(data){        
+        swal({
+          title: "Ooops..., failed!",
+          text: data.responseJSON.errors.name[0],          
+          icon: "error",          
+          timer : '6500'          
+        })        
+      }
+    });
+  }

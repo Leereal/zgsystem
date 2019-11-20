@@ -1,0 +1,99 @@
+Client
+==========
+Must login to the system
+Must view his profile and profile updated by admin
+must be able to view uploaded documents
+must be able to view balance on limits
+must receive notification if failed to make payment of the current month
+
+
+Admin
+============
+Register clients
+Register Service Provider
+Make Payment
+Approve claim
+
+
+Waiting periods how do you calculate their months
+
+Preauthorization with amount
+
+
+
+Service Provider
+================
+Banking Details
+bank, branch code, account number
+
+
+Dependents below 18 must pay  dependents premiumothers must pay principal premium
+Terminate membership after 3 months
+
+Group
+=============
+Contact Person details -+++++++++++++++++++++-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Option to top up limits- not important
+
+Premium for Cooperate 
+and Premium for Individual
+
+Add Plan on receipt
+Month paid for 
+Create payment option for lapsed client
+allow swip branch
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Defence
+===============
+Allows use of IP address
+
+
+Discipline instead of category
+
+Add account ref number on claim form
+
+Change group to corporate
+ remove ward admission
+ edit plan acccess team leader
+ allow advance payment
+ add watermark 
+ remove employer details
+ re
+
+ user icon for profile change
+
+
+
+
+
+
+

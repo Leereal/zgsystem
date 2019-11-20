@@ -1,0 +1,211 @@
+PDF Generator Example:
+https://demonuts.com/category/laravel/
+
+Users
+Branches - Done
+Plans - Done
+Service Providers - Done
+Clients - Done
+Payments 
+Claims
+Expenses
+Incomes
+Banks - 
+Mode Of Payments
+
+Roles
+role_user
+Dependencies
+
+
+Users
+======
+fullname
+email
+password
+branch_id
+
+Code
+----
+User Model and Migration
+Login 
+User Controller
+User Views - index,create,edit,show
+
+
+User Profile
+============
+mobile_number
+address
+id_number
+
+
+
+Role
+========
+name
+
+Code
+----
+Service Providers Model and Migration
+Service Providers Route
+Service Providers Controller
+Service Providers Views - index,create,edit,show
+
+
+Role_user
+=========
+user_id
+role_id
+
+Reset password
+Confirm registration
+Forgot Password
+
+
+
+
+Service Providers
+===================
+name
+coverage
+category
+contact_person
+address
+phone_number
+cell_number
+email
+active_status
+
+Code
+----
+Service Providers Model and Migration
+Service Providers Route
+Service Providers Controller
+Service Providers Views - index,create,edit,show
+
+Questions
+---------
+Do you add cities on your own. Lets say if a doctor have a surgery in Bulawayo then opens in Chivhu what do you do?
+Comments from service providers about clients are they necessary
+
+
+
+
+
+Clients
+===================
+name
+surname
+id_number
+date_joined
+medical_aid_number
+cell_number
+email
+membership_status
+card_status
+active_status
+branch_id
+//client_type
+//branch
+
+Code
+----
+Clients Model and Migration
+Clients Route
+Clients Controller
+Clients Views - index,create,edit,show
+
+Questions
+---------
+Clients type do we have groups
+
+Payments
+===================
+client_id
+description
+amount
+plan_id
+mop
+receipt_number
+ref_number
+dop
+active_status
+user_id
+branch_id
+ip_address
+
+Code
+----
+Payments Model and Migration
+Payments Route
+Payments Controller
+Payments Views - index,create,edit,show
+
+Questions
+---------
+Lapsed meaning?
+Why adding dependents on payments sheet?
+
+
+
+Create client statement
+Learn authorization
+
+
+Claims
+===================
+serviceprovider_id
+description
+amount
+receipt_number
+ref_number
+dop
+user_id
+branch_id
+approved_by
+date_approved
+active_status
+ip_address
+
+Code
+----
+Claims Model and Migration
+Claims Route
+Claims Controller
+Claims Views - index,create,edit,show
+
+Questions
+---------
+We need claims form
+Tariff Number
+
+Limits
+========
+client_id
+
+Group
+======
+id
+name
+
+
+
+
+Reverse Transactions
+
+
+https://medium.com/justlaravel/how-to-implement-ajax-crud-operations-in-laravel-761fbea7e80d
+
+
+
+Errors
+============
+View Bank not showing fields data
+
+To be added
+============
+Allow clients to use online registration,submit form and make payyments via ecocash/transfer
+
+Add activity table and comments table
+income and expenses
