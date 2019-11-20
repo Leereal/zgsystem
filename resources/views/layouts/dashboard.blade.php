@@ -8,40 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/ico" />
 
-    <title>{{ config('app.name') }} | </title> 
-    <!--===========Dashboard===========-->
-    <!-- Bootstrap -->   
-    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Font Awesome -->    
-    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <!-- NProgress -->    
-    <link href="{{ asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
-    <!-- Switchery -->    
-    <link href="{{ asset('vendors/switchery/dist/switchery.min.css') }}" rel="stylesheet">
-    <!-- iCheck -->   
-    <link href="{{ asset('vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">    
-    <!-- bootstrap-progressbar -->    
-    <link href="{{ asset('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
-    <!-- bootstrap-progressbar -->    
-    <link href="{{ asset('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
-    <!-- JQVMap -->    
-    <link href="{{ asset('vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet">
-    <!-- bootstrap-daterangepicker --> 
-    <link href="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
-    <!-- Custom Theme Style -->    
-    <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
-   
-    <!-- Datatables -->
-    <link href="{{ asset('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    
+    <title>{{ config('app.name') }} | </title>
 
-    <!--===========Dashboard End===========-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script> 
-    <script src="{{ asset('vendors/vue/vue.js') }}"></script>
 
-      
+
   </head>
 
   <body class="nav-md">
@@ -62,7 +33,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2><strong>{{ strtoupper(Auth::user()->name) }}</strong></h2>                
+                <h2><strong>{{ strtoupper(Auth::user()->name) }}</strong></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -77,7 +48,7 @@
                   <!-- Home Links-->
                   <li><a href="{{ route('home') }}"><i class="fa fa-home"></i>Home</a></li>
 
-                  <!-- Banks Links-->                  
+                  <!-- Banks Links-->
                   @if(!Auth::user()->hasRole(['Client','Service Provider','Brand Ambassador']))
                     <li><a href="{{url('banks')}}"><i class="fa fa-building-o"></i>Banks</a></li>
                   @endif
@@ -87,20 +58,20 @@
                     <li><a><i class="fa fa-building-o"></i>Branches<span class=""></span></a>
                       <ul class="nav child_menu">
                         <li><a href="{{url('branches')}}">View Branches</a></li>
-                        <li><a href="{{url('branches/create')}}">Add Branch</a></li>                    
+                        <li><a href="{{url('branches/create')}}">Add Branch</a></li>
                       </ul>
                     </li>
-                  @endif 
+                  @endif
 
                   <!-- Categories Links-->
                   @if(Auth::user()->hasRole(['System Admin','Chairman','Principal Officer','Team Leader','Claims Officer','Administrator','']))
                     <li><a><i class="fa fa-list-alt"></i> Disciplines <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="{{url('categories')}}">View Disciplines</a></li>
-                        <li><a href="{{url('categories/create')}}">Add Discipline</a></li>                       
+                        <li><a href="{{url('categories/create')}}">Add Discipline</a></li>
                       </ul>
                     </li>
-                  @endif               
+                  @endif
 
                   {{-- <!-- Claims Links-->
                   @if(Auth::user()->hasRole(['System Admin','Chairman','Principal Officer','Team Leader','Claims Officer','Administrator','']))
@@ -120,12 +91,12 @@
                       <li><a href="{{url('clients')}}">View Clients</a></li>
                         @if(!Auth::user()->hasRole(['Client','Service Provider','Team Leader','Chairman','Principal Officer']))
                           <li><a href="{{url('clients/create')}}">Add Client</a></li>
-                        @endif                     
+                        @endif
                     </ul>
                   </li>
                   @endif
 
-                  <!-- Corporate Links-->                  
+                  <!-- Corporate Links-->
                   @if(!Auth::user()->hasRole(['Client','Service Provider','Brand Ambassador']))
                     <li><a href="{{url('groups')}}"><i class="fa fa-group"></i>Corporates</a></li>
                   @endif
@@ -145,10 +116,10 @@
                         <li><a href="{{url('payments')}}">View Payments</a></li>
                         @if(Auth::user()->hasRole(['Team Leader','System Admin','Principal Officer','Chairman']))
                           <li><a href="{{url('payments/reversed')}}">Reversed Payments</a></li>
-                        @endif                          
+                        @endif
                       </ul>
                     </li>
-                  @endif 
+                  @endif
 
                   <!-- Plans Links-->
                   @if(!Auth::user()->hasRole(['Client','Service Provider']))
@@ -162,7 +133,7 @@
                     </li>
                   @endif
 
-                  <!-- Service Provider Links-->                  
+                  <!-- Service Provider Links-->
                     <li><a><i class="fa fa-list-alt"></i>Service Providers<span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="{{url('service_providers')}}">View Service Provider</a></li>
@@ -177,19 +148,19 @@
                     <li><a><i class="fa fa-legal"></i>Tariffs<span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="{{url('tariffs')}}">View Tariffs</a></li>
-                        <li><a href="{{url('tariffs/create')}}">Add Tariff</a></li>                    
+                        <li><a href="{{url('tariffs/create')}}">Add Tariff</a></li>
                       </ul>
                     </li>
-                  @endif                
+                  @endif
 
                   <!-- Users Links-->
                   @if(Auth::user()->hasRole(['Chairman','System Admin','Principal Officer']))
                     <li><a><i class="fa fa-list-alt"></i>Users<span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="{{url('users')}}">View Users</a></li>                         
+                        <li><a href="{{url('users')}}">View Users</a></li>
                       </ul>
                     </li>
-                  @endif  
+                  @endif
 
               </div>
             </div>
@@ -202,20 +173,20 @@
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
               @endif
-              @if(Auth::user()->hasRole(['System Admin']))              
+              @if(Auth::user()->hasRole(['System Admin']))
               <a data-toggle="tooltip" data-placement="top" title="Lock" href="{{ route('lock') }}">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              @endif              
+              @endif
               <!--Logout Button-->
               <a data-toggle="tooltip" data-placement="top" title="{{ __('Logout') }}" href="{{ route('logout') }}"
                           onclick="event.preventDefault();
                           document.getElementById('logout-form').submit();">
                  <span class="glyphicon glyphicon-off red" aria-hidden="true"></span>
-              </a>                             
+              </a>
                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
-               </form>                
+               </form>
               <!--/Logout Button-->
             </div>
             <!-- /menu footer buttons -->
@@ -228,8 +199,8 @@
           <div class="nav_menu">
             <nav>
               <div class="nav toggle">
-               <span><a id="menu_toggle"><i class="fa fa-bars"></i></a></span>               
-              </div>             
+               <span><a id="menu_toggle"><i class="fa fa-bars"></i></a></span>
+              </div>
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -289,80 +260,6 @@
         <!-- /footer content -->
       </div>
     </div>
-
-    <!-- jQuery -->       
-    {{-- <script src="{{ asset('vendors/jquery/dist/jquery.min.js') }}"></script> --}}
-     
-        
-    <!-- Bootstrap -->    
-    <script src="{{ asset('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script> 
-    <!-- FastClick -->    
-    <script src="{{ asset('vendors/fastclick/lib/fastclick.js') }}"></script>
-    <!-- NProgress -->
-    <script src="{{ asset('vendors/nprogress/nprogress.js') }}"></script>
-
-     <!-- Switchery -->
-     <script src="{{ asset('vendors/switchery/dist/switchery.min.js') }}"></script>
-    <!-- Chart.js -->
-    <script src="{{ asset('vendors/Chart.js/dist/Chart.min.js') }}"></script>
-    <!-- gauge.js -->
-    <script src="{{ asset('vendors/gauge.js/dist/gauge.min.js') }}"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="{{ asset('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
-    <!-- iCheck -->
-    <script src="{{ asset('vendors/iCheck/icheck.min.js') }}"></script>
-    <!-- Skycons -->
-    <script src="{{ asset('vendors/skycons/skycons.js') }}"></script>
-    <!-- Flot -->
-    <script src="{{ asset('vendors/Flot/jquery.flot.js') }}"></script>
-    <script src="{{ asset('vendors/Flot/jquery.flot.pie.js') }}"></script>
-    <script src="{{ asset('vendors/Flot/jquery.flot.time.js') }}"></script>
-    <script src="{{ asset('vendors/Flot/jquery.flot.stack.js') }}"></script>
-    <script src="{{ asset('vendors/Flot/jquery.flot.resize.js') }}"></script>
-    <!-- Flot plugins -->
-    <script src="{{ asset('vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
-    <script src="{{ asset('vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
-    <script src="{{ asset('vendors/flot.curvedlines/curvedLines.js') }}"></script>
-    <!-- DateJS -->
-    <script src="{{ asset('vendors/DateJS/build/date.js') }}"></script>
-    <!-- JQVMap -->
-    <script src="{{ asset('vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
-    <script src="{{ asset('vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
-    <!-- bootstrap-daterangepicker -->
-    <script src="{{ asset('vendors/moment/min/moment.min.js') }}"></script>
-    <script src="{{ asset('vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
-    <!-- validator -->
-    <script src="{{ asset('vendors/validator/validator.js') }}"></script>
-    <!-- jquery.inputmask -->
-    <script src="{{ asset('vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js') }}"></script>  
-
-    <!-- Datatables -->
-    <script src="{{ asset('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-keytable/js/dataTables.keyTable.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
-    <script src="{{ asset('vendors/datatables.net-scroller/js/dataTables.scroller.min.js') }}"></script>
-    <script src="{{ asset('vendors/jszip/dist/jszip.min.js') }}"></script>
-    <script src="{{ asset('vendors/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="{{ asset('build/js/custom.min.js') }}"></script>
-
-    <!-- Web Scripts -->   
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script>
-    
-   
-
-    
+    <script src="{{ asset('js/app.js') }}"></script>
   </body>
 </html>

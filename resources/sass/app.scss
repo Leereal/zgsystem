@@ -5,7 +5,12 @@
 @import 'variables';
 
 // Bootstrap
-//@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~gentelella/build/css/custom.css';
+@import '~gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.css';
+
+//Fontawesome
+@import "~font-awesome/scss/font-awesome.scss";
 
 // Custom css
 @import 'style';

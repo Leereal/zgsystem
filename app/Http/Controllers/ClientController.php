@@ -28,11 +28,11 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {         
+    {
 
-        $clients = Client::with(['plan', 'branch','user'])->where([['status', '=', '1']])->with('dependents')->withCount('dependents')->get();       
-        //return view('clients.index',compact('clients'));
-        return json_encode($clients);
+        $clients = Client::with(['plan', 'branch','user'])->where([['status', '=', '1']])->with('dependents')->withCount('dependents')->get();
+        return view('clients.index',compact('clients'));
+
     }
 
     /**
@@ -43,7 +43,7 @@ class ClientController extends Controller
     public function create()
     {
         $plans = Plan::where('status',1)->orderBy('name')->get();
-        $groups = Group::where('status',1)->orderBy('name')->get(); 
+        $groups = Group::where('status',1)->orderBy('name')->get();
         return view('clients.create',compact('plans','groups'));
     }
 
@@ -59,16 +59,16 @@ class ClientController extends Controller
                 'title'=> 'required|min:2',
                 'name'=> 'required|min:2',
                 'surname'=> 'required|min:2',
-                'id_number'=> 'min:2|nullable|unique:clients,id_number', 
-                'cellphone'=> 'min:10|nullable|max:10', 
-                'email'=>'email|min:2|nullable',                
+                'id_number'=> 'min:2|nullable|unique:clients,id_number',
+                'cellphone'=> 'min:10|nullable|max:10',
+                'email'=>'email|min:2|nullable',
                 'date_of_birth'=> 'date|min:2|nullable',
                 'address'=> 'min:2|nullable',
                 'gender'=> 'min:2|required',
                 'home_telephone'=> 'min:2|nullable',
                 'business_telephone'=> 'min:2|nullable',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:8000',
-                'bank'=> 'min:2|nullable', 
+                'bank'=> 'min:2|nullable',
                 'branch'=> 'min:2|nullable',
                 'branch_code'=> 'min:2|nullable',
                 'account_number'=> 'min:2|nullable',
@@ -77,23 +77,23 @@ class ClientController extends Controller
                 'ecocash'=> 'min:10|nullable|max:10',
                 'telecash'=> 'min:10|nullable|max:10',
                 'netcash'=> 'min:10|nullable|max:10',
-        ]); 
+        ]);
 
         $path='';
         if($request->hasFile('image')->isValid())
         {
             $imageName = time().'.'.request()->image->getClientOriginalExtension();
-            request()->image->move(public_path('images'), $imageName); 
-            $path = 'images/'.$imageName;   
+            request()->image->move(public_path('images'), $imageName);
+            $path = 'images/'.$imageName;
         }
-        
+
 
         //Generate Medical Aid Number
         $plans = Plan::find($request->input('plan'));
         $id=$request->input('plan');
         $pre= $plans->pre;
         $last_number=$plans->last_number;
-        $num = $last_number+1; 
+        $num = $last_number+1;
         $new_number=sprintf("%05d", $num);
         $medical_aid_number=$pre.$new_number.'01';
         $premium=$plans->premium;
@@ -104,13 +104,13 @@ class ClientController extends Controller
         $add->name = $request->input('name');
         $add->surname = $request->input('surname');
         $add->id_number = $request->input('id_number');
-        $add->date_joined = Carbon::now();       
+        $add->date_joined = Carbon::now();
         $add->medical_aid_number = $medical_aid_number;
         $add->cellphone = $request->input('cellphone');
         $add->email = $request->input('email');
         $add->gender = $request->input('gender');
         $add->home_telephone = $request->input('home_telephone');
-        $add->business_telephone = $request->input('business_telephone');        
+        $add->business_telephone = $request->input('business_telephone');
         $add->address = $request->input('address');
         $add->date_of_birth = $request->input('date_of_birth');
         $add->title = $request->input('title');
@@ -118,13 +118,13 @@ class ClientController extends Controller
         if($request->input('group')){
            $add->group_id = $request->input('group');
            $add->premium = $plans->corporate_premium;
-           $add->total_premium = $plans->corporate_premium;            
+           $add->total_premium = $plans->corporate_premium;
         }
         else{
             $add->premium = $premium;
             $add->total_premium = $premium;
         }
-        
+
         $add->image = $path;
 
         $add->cancer = $request->input('cancer','No');
@@ -154,11 +154,11 @@ class ClientController extends Controller
             //Add limits for client
             $addLimit = new Limit;
             $addLimit->global_limit = $plans->global_limit;
-            $addLimit->plan_id = $plans->id;            
+            $addLimit->plan_id = $plans->id;
             $addLimit->hospitalization = $plans->hospitalization;
-            $addLimit->ward_admission = $plans->ward_admission;            
+            $addLimit->ward_admission = $plans->ward_admission;
             $addLimit->drugs = $plans->drugs;
-            $addLimit->dental = $plans->dental;            
+            $addLimit->dental = $plans->dental;
             $addLimit->optical = $plans->optical;
             $addLimit->oncology = $plans->oncology;
             $addLimit->dialysis = $plans->dialysis;
@@ -187,8 +187,8 @@ class ClientController extends Controller
                 $addWaitingPerirod->dialysis_waiting_period = Carbon::now()->addMonth(27);
                 $addWaitingPerirod->prosthesis_waiting_period = Carbon::now()->addMonth(27);
                 $add->waiting_period()->save($addWaitingPerirod);
-            } 
-            ////End           
+            }
+            ////End
 
             if($request->hasFile('docs')){
                 $allowedfileExtension=['pdf','jpg','png','docx'];
@@ -197,23 +197,23 @@ class ClientController extends Controller
                 foreach($request->file('docs') as $file){
                     $filename = $file->getClientOriginalName();
                     $extension = $file->getClientOriginalExtension();
-                    $check=in_array($extension,$allowedfileExtension);                    
-                    if($check){                                        
+                    $check=in_array($extension,$allowedfileExtension);
+                    if($check){
                         File::create([
                             'client_id' => $client->id,
                             'name' => $file->store('documents','public'),
                             'caption'=>$filename,
                             'user_id'=>Auth::user()->id
-                            ]);                                               
-                    }         
+                            ]);
+                    }
                 }
             }
             return redirect('/clients')->with('success','Succefully Saved. Client Medical Aid Number is '.$medical_aid_number);
         }
             return redirect('/clients')->with('error');
-        
 
-        
+
+
     }
 
     /**
@@ -231,7 +231,7 @@ class ClientController extends Controller
         $dependents = $client->dependents()->get();
         $files = $client->files()->get();
         $limit = $client->limit()->first();
-        $plan = $client->plan()->first();        
+        $plan = $client->plan()->first();
         //dd($data->toArray());
         return view('clients.profile',compact('client','payments','activities','dependents','claims','files','limit','plan'));
     }
@@ -263,16 +263,16 @@ class ClientController extends Controller
                 'title'=> 'required|min:2',
                 'name'=> 'required|min:2',
                 'surname'=> 'required|min:2',
-                'id_number'=> 'min:2|required', 
-                'cellphone'=> 'min:10|nullable|max:10', 
-                'email'=>'email|min:2|nullable',                
+                'id_number'=> 'min:2|required',
+                'cellphone'=> 'min:10|nullable|max:10',
+                'email'=>'email|min:2|nullable',
                 'date_of_birth'=> 'date|min:2|nullable',
                 'address'=> 'min:2|nullable',
                 'gender'=> 'min:2|required',
                 'home_telephone'=> 'min:2|nullable',
                 'business_telephone'=> 'min:2|nullable',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:8000',
-                'bank'=> 'min:2|nullable', 
+                'bank'=> 'min:2|nullable',
                 'branch'=> 'min:2|nullable',
                 'branch_code'=> 'min:2|nullable',
                 'account_number'=> 'min:2|nullable',
@@ -281,9 +281,9 @@ class ClientController extends Controller
                 'ecocash'=> 'min:10|nullable|max:10',
                 'telecash'=> 'min:10|nullable|max:10',
                 'netcash'=> 'min:10|nullable|max:10',
-        ]); 
+        ]);
         //Generate Medical Aid Number
-        $plans = Plan::find($request->input('plan'));        
+        $plans = Plan::find($request->input('plan'));
         $premium=$plans->premium;
 
         $add = Client::find($id);
@@ -294,11 +294,11 @@ class ClientController extends Controller
         $add->email = $request->input('email');
         $add->gender = $request->input('gender');
         $add->home_telephone = $request->input('home_telephone');
-        $add->business_telephone = $request->input('business_telephone');       
+        $add->business_telephone = $request->input('business_telephone');
         $add->address = $request->input('address');
         $add->date_of_birth = $request->input('date_of_birth');
         $add->title = $request->input('title');
-        $add->premium = $premium; 
+        $add->premium = $premium;
 
         $add->cancer = $request->input('cancer','No');
         $add->renal_disease = $request->input('renal_disease','No');
@@ -326,7 +326,7 @@ class ClientController extends Controller
             return redirect('/clients')->with('success','Succefully Updated.');
         }
             return redirect('/clients')->with('error');
-   
+
     }
 
     /**

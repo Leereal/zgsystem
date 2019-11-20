@@ -3,8 +3,13 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
+window.$ = window.jQuery = require('jquery');
+require('bootstrap/dist/js/bootstrap.js');
+require('gentelella/build/js/custom.js');
+require( 'datatables.net-dt' )();
 
-require('./bootstrap');
+window.axios = require('axios');//Require Axios for it to work after installing it
+
 
 window.Vue = require('vue');
 
