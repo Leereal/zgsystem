@@ -20,29 +20,29 @@ class Branch extends Model
 	{
 		// hasMany(RelatedModel, foreignKeyOnRelatedModel = client_id, localKey = id)
 		return $this->hasMany(Claim::class);
-	}	
+	}
 
 	//Client Relationship
 	public function clients()
 	{
 		// hasMany(RelatedModel, foreignKeyOnRelatedModel = client_id, localKey = id)
 		return $this->hasMany(Client::class);
-	}	
-    
+	}
+
     //Client Relationship
 	public function dependents()
 	{
 		// hasMany(RelatedModel, foreignKeyOnRelatedModel = client_id, localKey = id)
 		return $this->hasMany(Dependent::class);
-	}	
-    
+	}
+
     //ServiceProvider Relationship
 	public function serviceprovider()
 	{
 		// hasMany(RelatedModel, foreignKeyOnRelatedModel = client_id, localKey = id)
 		return $this->hasMany(ServiceProvider::class);
-	}	
-    
+	}
+
      //Payments Relationship
 	public function payment()
 	{

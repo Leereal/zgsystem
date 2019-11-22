@@ -10,8 +10,8 @@ class Group extends Model
 	use SoftDeletes;
 	protected $guarded = [];
 
-	 //Clients Relationship	
-	public function clients()
+	 //Clients Relationship
+	public function client()
 	{
 		// hasMany(RelatedModel, foreignKeyOnRelatedModel = client_id, localKey = id)
 		return $this->hasMany(Client::class);
@@ -28,6 +28,6 @@ class Group extends Model
 	    static::restoring(function($group) {
 	        $group->client()->restore();
 	    });
-	    
-	}    
+
+	}
 }

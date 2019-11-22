@@ -8,22 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="{{ asset('images/favicon.ico') }}" type="image/ico" />
     <title>{{ config('app.name', 'Laravel') }} | </title>
-
-    <!--===========Dashboard===========-->
-    <!-- Bootstrap -->   
-    <link href="{{ asset('vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <!-- Font Awesome -->    
-    <link href="{{ asset('vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-    <!-- NProgress -->    
-    <link href="{{ asset('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
-    <!-- iCheck -->   
-    <link href="{{ asset('vendors/animate.css/animate.min.css') }}" rel="stylesheet">   
-  
-    <!-- Custom Theme Style -->    
-    <link href="{{ asset('build/css/custom.min.css') }}" rel="stylesheet">
-    <!--===========Dashboard End===========-->
-  </head> 
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  </head>
     <!-- page content -->
         @yield('content')
-        <!-- /page content -->  
+        <!-- /page content -->
 </html>

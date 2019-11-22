@@ -6,9 +6,38 @@
 window.$ = window.jQuery = require('jquery');
 require('bootstrap/dist/js/bootstrap.js');
 require('gentelella/build/js/custom.js');
-require( 'datatables.net-dt' )();
+//require('datatables.net-dt')();
+import dt from 'datatables.net'
 
-window.axios = require('axios');//Require Axios for it to work after installing it
+window.axios = require('axios'); //Require Axios for it to work after installing it
+
+//Datatables Custom Js
+$(document).ready(function() {
+    $('#table1').DataTable({
+        "scrollX": true
+    });
+
+});
+
+//import sweetalert 2
+import swal from 'sweetalert2'
+window.swal = swal;
+
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', swal.stopTimer)
+        toast.addEventListener('mouseleave', swal.resumeTimer)
+    }
+})
+window.toast = toast;
+
+
+
 
 
 window.Vue = require('vue');
@@ -33,5 +62,46 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 
 const app = new Vue({
-    el: '#app',
+    el: '',
 });
+
+
+
+
+//Custom functions
+window.del = function(url) {
+    swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    '_method': 'DELETE'
+                },
+                success: function(data) {
+                    swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    ).then(function() { window.location.reload(); });
+                },
+                error: function(data) {
+                    swal.fire(
+                        'Ooops... failed!',
+                        'Failed',
+                        "error",
+                        '6500'
+                    );
+                }
+            });
+        };
+    })
+}
