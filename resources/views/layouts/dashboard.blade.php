@@ -12,6 +12,7 @@
     <title>{{ config('app.name') }} | </title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
 
 
   </head>
@@ -264,7 +265,7 @@
       </div>
     </div>
 
-    <script src="{{ asset('js/app.js') }}"></script>
+
     <script>
         $.ajaxSetup({
             headers: {
